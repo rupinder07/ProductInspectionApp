@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Inspections.View.InspectionList">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Inspection List"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="StartAndExpand"/>
+                <ListView ItemsSource="{Binding Inspections}"
+                          HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- <TextCell Text="{Binding DueDate}"
+                                      Tapped="OnSelected"/>
+                            -->
+                            <ViewCell Tapped="OnSelected">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0"
+                                           Grid.ColumnSpan="2"
+                                           Text="{Binding Name}"
+                                           FontSize="Medium"/>
+                                    <Label Grid.Row ="1"
+                                           Grid.Column="0"
+                                           Text="{Binding DueDate}"
+                                           FontSize="Small"/>
+                                    <Label Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding Location}"
+                                           FontSize="Small"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            
+        </ScrollView>
+       
+    </ContentPage.Content>
+</ContentPage>
