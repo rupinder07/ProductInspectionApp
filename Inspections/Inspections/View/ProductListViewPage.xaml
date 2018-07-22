@@ -5,11 +5,11 @@
 
     <StackLayout>
         <Label Text="Products"/>
-        <ListView x:Name="ProductListView">
+        <ListView ItemsSource="{Binding Products}"
+                  ItemTapped="ProductListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}"
-                              Tapped="OnTapped"/>
+                    <TextCell Text="{Binding Name}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

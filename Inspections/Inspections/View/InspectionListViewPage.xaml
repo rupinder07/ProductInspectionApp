@@ -9,14 +9,12 @@
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="StartAndExpand"/>
                 <ListView ItemsSource="{Binding Inspections}"
-                          HasUnevenRows="True">
+                          HasUnevenRows="True"
+                          ItemTapped="ListView_ItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <!-- <TextCell Text="{Binding DueDate}"
-                                      Tapped="OnSelected"/>
-                            -->
-                            <ViewCell Tapped="OnSelected">
-                                <Grid>
+                            <ViewCell>
+                                <Grid >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
@@ -28,15 +26,18 @@
                                     <Label Grid.Row="0"
                                            Grid.ColumnSpan="2"
                                            Text="{Binding Name}"
-                                           FontSize="Medium"/>
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"/>
                                     <Label Grid.Row ="1"
                                            Grid.Column="0"
                                            Text="{Binding DueDate}"
-                                           FontSize="Small"/>
+                                           FontSize="Small"
+                                           FontAttributes="Italic"/>
                                     <Label Grid.Row="1"
                                            Grid.Column="1"
                                            Text="{Binding Location}"
-                                           FontSize="Small"/>
+                                           FontSize="Small"
+                                           FontAttributes="Italic"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

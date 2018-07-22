@@ -1,21 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Inspections"
+             xmlns:local="clr-namespace:Inspections.ViewModel"
+             xmlns:conv="clr-namespace:Inspections.Converter"
              x:Class="Inspections.MainPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:UsernameToBoolConverter x:Key="userToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <StackLayout>
-        <!-- Place new controls here -->
-    	<Label Text="Company X Inspections" 
+        <Label Text="Company X Inspections" 
            HorizontalOptions="Center"
            VerticalOptions="Start" />
-        <Entry Placeholder="E-mail"/>
+        <Entry x:Name="username" 
+            Placeholder="E-mail"
+               Text="{Binding Email, Mode=TwoWay}"
+               TextChanged="Entry_TextChanged">
+            <Entry.Behaviors xmlns:behaviors="clr-namespace:Inspections.Behaviors">
+                <behaviors:EmailBehavior />
+            </Entry.Behaviors>
+        </Entry>
         <Entry Placeholder="Password"
+               Text="{Binding Password}"
                IsPassword="True"/>
+        <Label x:Name="ErrorLabel"
+               TextColor="Red"
+               FontAttributes="Italic"
+               FontSize="Small"
+               IsVisible="False"/>
         <Button Text="Login"
+                TextColor="White"
+                BackgroundColor="#22A7F0"
                 Clicked="Login"/>
+                <!-- IsEnabled="{Binding Source={x:Reference username}, Path=Text, Converter={StaticResource userToBool}}" -->
         <Button Text="Sign-Up"
+                IsVisible="False"
                 Clicked="SignUp"/>
+        
     </StackLayout>
 
 </ContentPage>

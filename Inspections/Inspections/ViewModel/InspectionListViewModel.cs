@@ -1,17 +1,41 @@
 ﻿using Inspections.Model;
-using System;
+using Inspections.Services;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Inspections.ViewModel
 {
-    public class InspectionListViewModel
+    public class InspectionListViewModel : INotifyPropertyChanged
     {
         public InspectionListViewModel()
         {
-            Inspections.Add(new Inspection() { Name = "Inspection 1", DueDate = "21-July-2018", Location = "Gurgaon"});
+            FetchInspections();   
         }
 
-        public List<Inspection> Inspections { get; set; } = new List<Inspection>();
+        private ObservableCollection<Inspection> _inspections = new ObservableCollection<Inspection>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<Inspection> Inspections
+        {
+            get { return _inspections; }
+            set
+            {
+
+                _inspections = value;
+            }
+        }
+
+
+        public async void FetchInspections()
+        {
+            string content = await new RestClient().HttpClient.GetStringAsync("http://172.20.10.3:8080/inspection");
+            List<Inspection> inspections = JsonConvert.DeserializeObject<List<Inspection>>(content);
+            inspections.ForEach(Inspections.Add);
+        }
     }
+
+
 }

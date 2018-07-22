@@ -1,9 +1,8 @@
-﻿using Inspections.ViewModel;
+﻿using Inspections.Model;
+using Inspections.Services;
+using Inspections.ViewModel;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,20 +12,20 @@ namespace Inspections.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductList : ContentPage
     {
-        public ObservableCollection<string> Items { get; set; }
+    
+        ProductListViewModel vm = new ProductListViewModel();
 
-        public ProductList()
+        public ProductList(string id)
         {
             InitializeComponent();
-            ProductListViewModel vm = new ProductListViewModel();
             BindingContext = vm;
-            vm.Products.Add(new Model.Product() { Name = "Product 1"});
-			ProductListView.ItemsSource = vm.Products;
+            vm.FetchProoductsByInspectionId(id);
         }
 
-        private void OnTapped(object sender, EventArgs e) => Navigation.PushAsync(new NavigationPage(new ProductView()));
-            
-            
-        
+        private void ProductListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            Product product = e.Item as Product;
+            Navigation.PushAsync(new ProductView(product.InspectionId, product.Id));
+        }
     }
 }
