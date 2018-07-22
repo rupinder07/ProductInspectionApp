@@ -1,6 +1,5 @@
 ﻿using Inspections.Services;
 using System.Threading.Tasks;
-using Xamarin.Auth;
 using Xamarin.Forms;
 
 namespace Inspections.ViewModel

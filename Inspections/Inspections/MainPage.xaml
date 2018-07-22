@@ -34,8 +34,8 @@
         <Button Text="Login"
                 TextColor="White"
                 BackgroundColor="#22A7F0"
+                IsEnabled="{Binding Source={x:Reference username}, Path=Text, Converter={StaticResource userToBool}}"
                 Clicked="Login"/>
-                <!-- IsEnabled="{Binding Source={x:Reference username}, Path=Text, Converter={StaticResource userToBool}}" -->
         <Button Text="Sign-Up"
                 IsVisible="False"
                 Clicked="SignUp"/>
