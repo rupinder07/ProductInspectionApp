@@ -27,6 +27,6 @@ D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\ne
 D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\Inspections.csproj.CoreCompileInputs.cache
 D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\Inspections.AssemblyInfoInputs.cache
 D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\Inspections.AssemblyInfo.cs
-D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\XamlC.stamp
 D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\Inspections.dll
 D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\Inspections.pdb
+D:\NAGP\MADP\Workspace\ProductInspectionApp\Inspections\Inspections\obj\Debug\netstandard2.0\XamlC.stamp

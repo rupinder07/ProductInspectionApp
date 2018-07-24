@@ -17,16 +17,16 @@ namespace Inspections.ViewModel
         internal async Task<bool> Login()
         {
             var response =  await _loginService.Login(Email, Password);
+            
             /**
             Account account = new Account
             {
                 Username = Email
             };
             account.Properties.Add("Password", Password);
-            AccountStore.Create().Save(account, "ProductInspections");
-
-            var fetchedAccount = AccountStore.Create().FindAccountsForService("ProductInspections");
-            */
+            AccountStore.Create().Save(account, "something");
+            **/
+            
             return response;
             //if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
             //{
