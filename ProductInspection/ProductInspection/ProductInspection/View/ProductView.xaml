@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:Class="ProductInspection.View.ProductView">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Text="Is the state of product satisfactory?"/>
+                <Switch Grid.Row="0" Grid.Column="1" 
+                    IsToggled="{Binding Product.StateSatisfactory, Mode=TwoWay}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Does product require maintenance?"/>
+                <Switch Grid.Row="1" Grid.Column="1" 
+                    IsToggled="{Binding Product.RequiresMaintenance, Mode=TwoWay}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Date of Inspection"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" 
+                        Format="dd-MM-yyyy"
+                        FontSize="Small"
+                        MinimumDate="{x:Static system:DateTime.Now}"
+                        Date="{Binding Product.InspectionDateTime, Mode=TwoWay}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Comments"/>
+                <Entry Grid.Row="4"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="{Binding Product.Comments}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="Reset" Clicked="Reset"/>
+                <Button Grid.Column="1" Text="Submit" Clicked="Submit"/>
+            </Grid>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>
