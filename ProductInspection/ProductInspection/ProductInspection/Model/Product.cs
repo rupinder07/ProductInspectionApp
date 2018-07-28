@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.IO;
 using Xamarin.Forms;
 
 namespace ProductInspection.Model
@@ -43,6 +44,9 @@ namespace ProductInspection.Model
                 }
             }
         }
+
+        [JsonProperty("image")]
+        public Stream Image { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

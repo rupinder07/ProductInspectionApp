@@ -33,5 +33,10 @@ namespace ProductInspection.View
             Inspection inspection = (e.Item as Inspection);
             Navigation.PushAsync(new ProductList(inspection.Id));
         }
+
+        private async void Logout_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new LoginPage());
+        }
     }
 }

@@ -18,15 +18,16 @@ namespace ProductInspection
         {
             (sender as Button).IsEnabled = false;
             var loginDetails = await vm.Login();
-            loginDetails = true;
             if (loginDetails)
             {
-                await App.Repository.SaveItemAsync(new model.User() { Email = vm.Email, Password = vm.Password });
                 await Navigation.PushModalAsync(new NavigationPage(new HomePage()));
             }
             else
             {
                 await DisplayAlert("Invalid Login", "Invalid Email/Password", "Ok");
+                username.Text = "";
+                Password.Text = "";
+                
             }
             (sender as Button).IsEnabled = true;
         }

@@ -23,7 +23,8 @@
                 <behaviors:EmailBehavior />
             </Entry.Behaviors>
         </Entry>
-        <Entry Placeholder="Password"
+        <Entry x:Name="Password"
+                Placeholder="Password"
                Text="{Binding Password}"
                IsPassword="True"/>
         <Label x:Name="ErrorLabel"

@@ -94,3 +94,6 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
+
+.vs/
+ProductInspection/.vs/

@@ -27,7 +27,8 @@ namespace ProductInspection
                 if (repository == null){
                     repository = new UserRepository(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "productinspection.db3"));
                     
-                } return repository;
+                }
+                return repository;
             }
 
         }

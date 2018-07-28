@@ -8,7 +8,7 @@ namespace ProductInspection.Services
     {
         public static HttpClient HttpClient { get; } = new HttpClient()
         {
-            BaseAddress = new Uri("http://10.34.27.101:8080/"),
+            BaseAddress = new Uri("http://10.34.27.15:8080/"),
             Timeout = TimeSpan.FromSeconds(5)
         };
     }

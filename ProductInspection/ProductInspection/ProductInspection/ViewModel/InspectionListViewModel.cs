@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ProductInspection.ViewModel
 {
@@ -24,6 +26,17 @@ namespace ProductInspection.ViewModel
             get { return _inspections; }
             set { _inspections = value; }
         }
+
+        public ICommand LogoutCommand {
+            get
+            {
+                return new Command(() =>
+                {
+                    LoginService.Logout();
+                }); 
+            }
+        }
+
 
 
         public async void FetchInspections()

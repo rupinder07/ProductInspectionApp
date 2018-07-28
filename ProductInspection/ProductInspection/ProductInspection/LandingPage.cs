@@ -19,9 +19,12 @@ namespace ProductInspection.View
         protected override async void OnAppearing()
 
         {
-
             base.OnAppearing();
 
+            /*
+             * Using repository to store username and password. Tried with Xamarin.Auth but was facing issues with versions of Android libraries
+             * So in interest of time, using repository
+             */
             List<User> Users = await App.Repository.GetItemsAsync();
             if(Users.Count > 0)
             {
@@ -31,12 +34,6 @@ namespace ProductInspection.View
             {
                 await Navigation.PushModalAsync(new LoginPage());
             }
-
         }
-
-
-
-
-
     }
 }
