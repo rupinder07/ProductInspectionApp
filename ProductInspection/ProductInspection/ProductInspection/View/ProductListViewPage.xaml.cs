@@ -15,7 +15,7 @@ namespace ProductInspection.View
     
         ProductListViewModel vm = new ProductListViewModel();
 
-        public ProductList(string id)
+        public ProductList(int id)
         {
             InitializeComponent();
             BindingContext = vm;

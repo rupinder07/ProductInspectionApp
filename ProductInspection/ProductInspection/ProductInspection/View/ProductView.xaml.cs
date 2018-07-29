@@ -11,7 +11,7 @@ namespace ProductInspection.View
 	{
         ProductViewModel vm = new ProductViewModel();
 
-        public ProductView(string inspectionId, string productId)
+        public ProductView(int inspectionId, int productId)
         {
             InitializeComponent();
             BindingContext = vm;
@@ -28,10 +28,10 @@ namespace ProductInspection.View
          //   vm.ProductStateBinding = new Model.ProductState();
         }
 
-        private async void Submit(object sender, EventArgs e)
+        private void Submit(object sender, EventArgs e)
         {
-            HttpStatusCode StatusCode = await vm.OnSubmit();
-            await Navigation.PopAsync();
+            vm.OnSubmit();
+            Navigation.PopAsync();
         }
 
         private async void UploadImage(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace ProductInspection.View
                 await DisplayAlert("No Image Taken", "Can not take photo", "OK");
                 return;
             }
-            vm.Product.Image = file.GetStream();
+            //vm.Product.Image = file.GetStream();
             file.Dispose();
         }
 
@@ -74,7 +74,7 @@ namespace ProductInspection.View
                 await DisplayAlert("No Image Taken", "Can not take photo", "OK");
                 return;
             }
-            vm.Product.Image = file.GetStream();
+            //vm.Product.Image = file.GetStream();
             file.Dispose();
         }
     }

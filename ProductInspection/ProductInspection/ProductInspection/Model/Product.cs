@@ -1,18 +1,22 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using SQLite;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using Xamarin.Forms;
 
 namespace ProductInspection.Model
 {
-    public class Product : INotifyPropertyChanged
+    public class Product : IBaseEntity, INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("inspectionId")]
-        public string InspectionId { get; set; }
+        public int InspectionId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -45,9 +49,22 @@ namespace ProductInspection.Model
             }
         }
 
-        [JsonProperty("image")]
-        public Stream Image { get; set; }
+        //[JsonProperty("lastSyncTime")]
+        //public string lastSyncTime { get; set; }
+
+        [JsonConverter(typeof(CustomDateTimeConverter))]
+        public DateTime LastSyncTime { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool PushDownstream { get; set; } = false;
+    }
+
+    class CustomDateTimeConverter : IsoDateTimeConverter
+    {
+        public CustomDateTimeConverter()
+        {
+            base.DateTimeFormat = "dd/MM/yyyy";
+        }
     }
 }

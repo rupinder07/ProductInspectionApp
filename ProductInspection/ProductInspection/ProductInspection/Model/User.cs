@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using ProductInspection.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductInspection.model
+namespace ProductInspection.Model
 {
     public class User
     {

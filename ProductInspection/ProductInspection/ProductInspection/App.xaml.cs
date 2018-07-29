@@ -11,27 +11,20 @@ namespace ProductInspection
 	public partial class App : Application
 	{
 
-        public static UserRepository repository;
-
         public App ()
 		{
 			InitializeComponent();
 
+            //Initialize a connection which will be used to access the database throughout application
+            Console.Out.Write("Path of DB: " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+            RepositoryHelper.InitializeConnection(Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "productinspection4.db3"));
+
+            //Redirecting the app to a facade
+            //This facade decides whether to redirect user to login page or to home page
 			MainPage = new NavigationPage(new LandingPage());
 		}
-
-        public static UserRepository Repository
-        {
-
-            get{
-                if (repository == null){
-                    repository = new UserRepository(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "productinspection.db3"));
-                    
-                }
-                return repository;
-            }
-
-        }
 
         protected override void OnStart ()
 		{

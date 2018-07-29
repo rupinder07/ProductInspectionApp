@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:conv="clr-namespace:ProductInspection.Converter"
              x:Class="ProductInspection.View.ProductView">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:ObjectToBoolConverter x:Key="objectToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -44,12 +52,10 @@
                 <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Comments"/>
                 <Entry Grid.Row="4"
                        Grid.Column="0"
+                       Grid.RowSpan="2"
                        Grid.ColumnSpan="2"
                        Text="{Binding Product.Comments}"/>
-                <Button Grid.Row="5"
-                        Grid.Column="1"
-                        Text="Upload"
-                        Clicked="UploadImage"></Button>
+                
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -57,7 +63,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Text="Reset" Clicked="Reset"/>
-                <Button Grid.Column="1" Text="Submit" Clicked="Submit"/>
+                <Button Grid.Column="1" Text="Submit" Clicked="Submit" IsEnabled="{Binding Product, Converter={StaticResource objectToBool}}}"/>
             </Grid>
         </Grid>
         

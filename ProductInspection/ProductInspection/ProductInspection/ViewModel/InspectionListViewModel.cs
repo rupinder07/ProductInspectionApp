@@ -7,13 +7,20 @@ using System.ComponentModel;
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using ProductInspection.repository;
+using System.Globalization;
 
 namespace ProductInspection.ViewModel
 {
     public class InspectionListViewModel : INotifyPropertyChanged
     {
+        private BaseRepository<Inspection> InspectionRepository = new BaseRepository<Inspection>(); 
+        private LoginService Service = new LoginService();
+
         public InspectionListViewModel()
         {
+            //Load all the insepctions to show on the page
+            //Currently it will show all the inspections, this can be enhanced to show inspections only for logged in user
             FetchInspections();   
         }
 
@@ -32,7 +39,7 @@ namespace ProductInspection.ViewModel
             {
                 return new Command(() =>
                 {
-                    LoginService.Logout();
+                    Service.Logout();
                 }); 
             }
         }
@@ -41,18 +48,59 @@ namespace ProductInspection.ViewModel
 
         public async void FetchInspections()
         {
-            try
+            if (await SyncService.IsBackendReachable())
             {
-                string content = await RestClient.HttpClient.GetStringAsync("inspection");
-                List<Inspection> inspections = JsonConvert.DeserializeObject<List<Inspection>>(content);
+                try
+                {
+                    //fetch the inspections from Backend
+                    string content = await RestClient.HttpClient.GetStringAsync("inspection");
+                    List<Inspection> inspections = JsonConvert.DeserializeObject<List<Inspection>>(content);
+                    inspections.ForEach(Inspections.Add);
+                    //Update the inspections in local DB so as to support offline application
+                    UpdateInspectionsInLocalStorage(inspections);
+                }
+                catch
+                {
+                    List<Inspection> inspections = await InspectionRepository.GetItemsAsync();
+                    inspections.ForEach(Inspections.Add);
+                }
+            }
+            else
+            {
+                List<Inspection> inspections = await InspectionRepository.GetItemsAsync();
                 inspections.ForEach(Inspections.Add);
             }
-            catch(Exception e)
+        }
+
+        private async void UpdateInspectionsInLocalStorage(List<Inspection> inspections)
+        {
+            List<Inspection> existingInspections = await InspectionRepository.GetItemsAsync();
+            if(existingInspections.Count == 0)
             {
-                Console.Write(e);
+                InspectionRepository.SaveAllItemsAsync(inspections);
+            }
+            else
+            {
+                AddNewInspectionsIfAny(inspections, existingInspections);
             }
         }
+
+        private void AddNewInspectionsIfAny(List<Inspection> inspections, List<Inspection> existingInspections)
+        {
+            DateTime LastSyncTime = DateTime.MinValue;
+            existingInspections.ForEach(inspection =>
+            {
+                if(inspection.LastSyncTime.CompareTo(LastSyncTime) > 0)
+                {
+                    LastSyncTime = inspection.LastSyncTime;
+                }
+            });
+
+            List<Inspection> inspectionsToAdd = inspections.FindAll(inspection =>
+                inspection.LastSyncTime.CompareTo(LastSyncTime) > 0
+            );
+
+            InspectionRepository.SaveAllItemsAsync(inspectionsToAdd);
+        }
     }
-
-
 }

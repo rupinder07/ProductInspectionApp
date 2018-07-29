@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using ProductInspection.model;
+using ProductInspection.Model;
+using ProductInspection.repository;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -12,6 +13,9 @@ namespace ProductInspection.Services
     class LoginService
     {
 
+        private BaseRepository<User> UserRepository = new BaseRepository<User>();
+
+
         internal async Task<bool> Login(string email, string password)
         {
             try
@@ -21,7 +25,7 @@ namespace ProductInspection.Services
                 var response = await RestClient.HttpClient.PostAsync("login", content);
                 if (response.StatusCode.Equals(HttpStatusCode.Created))
                 {
-                    await App.Repository.SaveItemAsync(new model.User() { Email = email, Password = password });
+                    UserRepository.SaveItemAsync(new User() { Email = email, Password = password });
                     return true;
                 }
                 return false;
@@ -33,12 +37,12 @@ namespace ProductInspection.Services
             }     
         }
 
-        internal async static void Logout()
+        internal async void Logout()
         {
-            List<User> Users = await App.Repository.GetItemsAsync();
+            List<User> Users = await UserRepository.GetItemsAsync();
             if (Users.Count > 0)
             {
-                await App.Repository.DeleteItemAsync(Users[0]);
+                await UserRepository.DeleteItemAsync(Users[0]);
             }
         }
     }
